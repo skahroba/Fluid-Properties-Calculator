@@ -1,2 +1,2 @@
-# Fluid-Properties-Calculator
-GUI for calculating different fluid properties using CoolProp library
+# CoolProp-Bsed-GUI-for-Fluid-Properties-Calculator
+Simple CoolProp-bsed GUI for fluid properties calcluations. 
