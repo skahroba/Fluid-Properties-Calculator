@@ -2,7 +2,9 @@ import CoolProp.CoolProp as CP
 from Tkinter import *
 #
 fields = ('Pressure [Bar]', 'Temperature [C]',
-          'Density [kg/m3]', 'Viscosity [cP]', 'Compressibility [1/bar]')
+          'Density [kg/m3]', 'Molar density [mol/m3]',
+          'Viscosity [cP]', 'Compressibility [1/bar]',
+          'Thermal conductivity [W/m/K]')
 
 def fluid_properties(entries):
    flu   = entries['Fluid'].get()
@@ -13,6 +15,8 @@ def fluid_properties(entries):
    dens = CP.PropsSI("D", "T", temp, "P", press, flu)
    visc = CP.PropsSI("V", "T", temp, "P", press, flu) * 1000
    comp = CP.PropsSI("ISOTHERMAL_COMPRESSIBILITY", "T", temp, "P", press, flu) * 1e5
+   cond = CP.PropsSI("L", "T", temp, "P", press, flu)
+   mold = CP.PropsSI("DMOLAR", "T", temp, "P", press, flu)
 
    entries['Density [kg/m3]'].delete(0,END)
    entries['Density [kg/m3]'].insert(0, dens)
@@ -26,17 +30,34 @@ def fluid_properties(entries):
    entries['Compressibility [1/bar]'].insert(0, comp)
    print("Compressibility: %f" % float(comp))
 
+   entries['Thermal conductivity [W/m/K]'].delete(0, END)
+   entries['Thermal conductivity [W/m/K]'].insert(0, cond)
+   print("Thermal conductivity [W/m/K]: %f" % float(cond))
+
+   entries['Molar density [mol/m3]'].delete(0, END)
+   entries['Molar density [mol/m3]'].insert(0, cond)
+   print("Molar density [mol/m3]: %f" % float(cond))
+
 def makeform(root, fields):
    entries = {}
    var = StringVar(root)
    var.set('FLUID NAME')
-   choices = ['water','CO2','N2','decane','n-decane']
+   choices = ['water','CarbonDioxide','CarbonMonoxide','Nitrogen','Air','Benzene',
+              'n-decane','CycloPropane'
+              'Toluene','Xenon','CycloHexane',
+              'Cyclopentane','Deuterium','DimethylEther',
+              'Helium','Hydrogen','HydrogenChloride',
+              'HydrogenSulfide','Methane', 'Methanol',
+              'Propyne', 'n-Dodecane', 'n-Heptane',
+              'n-Hexane','n-Nonane','n-Octane','n-Pentane',
+              'n-Propane']
+   choices = sorted(choices)
    option = OptionMenu(root, var, *choices)
    option.pack(side=TOP, fill = X , expand = YES, padx=5, pady=5)
    entries['Fluid'] = var
    for field in fields:
       row = Frame(root)
-      lab = Label(row, width=22, text=field+": ", anchor='w')
+      lab = Label(row, width=25, text=field+": ", anchor='w')
       ent = Entry(row)
       ent.insert(0,"0")
       row.pack(side=TOP, fill=X, padx=5, pady=5)
