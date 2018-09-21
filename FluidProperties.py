@@ -77,4 +77,5 @@ if __name__ == '__main__':
    b2.pack(side=LEFT, padx=5, pady=5)
    b3 = Button(root, text='Quit', command=root.quit)
    b3.pack(side=LEFT, padx=5, pady=5)
+   root.title("Fluid Properties Calculator")
    root.mainloop()
