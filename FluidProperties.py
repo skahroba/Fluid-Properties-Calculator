@@ -43,7 +43,7 @@ def makeform(root, fields):
    var = StringVar(root)
    var.set('FLUID NAME')
    choices = ['water','CarbonDioxide','CarbonMonoxide','Nitrogen','Air','Benzene',
-              'n-decane','CycloPropane'
+              'n-Decane','CycloPropane',
               'Toluene','Xenon','CycloHexane',
               'Cyclopentane','Deuterium','DimethylEther',
               'Helium','Hydrogen','HydrogenChloride',
