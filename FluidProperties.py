@@ -35,8 +35,8 @@ def fluid_properties(entries):
    print("Thermal conductivity [W/m/K]: %f" % float(cond))
 
    entries['Molar density [mol/m3]'].delete(0, END)
-   entries['Molar density [mol/m3]'].insert(0, cond)
-   print("Molar density [mol/m3]: %f" % float(cond))
+   entries['Molar density [mol/m3]'].insert(0, mold)
+   print("Molar density [mol/m3]: %f" % float(mold))
 
 def makeform(root, fields):
    entries = {}
